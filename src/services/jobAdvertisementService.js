@@ -5,5 +5,7 @@ export default class JobAdvertisementService{
         return axios.get("http://localhost:8080/api/JobAdvertisements/getByStatusTrue")
     }
 
-    
+    getJobAdvertisementOrderByDateDesc(){
+        return axios.get("http://localhost:8080/api/JobAdvertisements/findByStatusTrueOrderByPublicationDateDesc")
+    }
 }

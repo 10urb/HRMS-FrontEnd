@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import {Table } from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import { Table } from 'semantic-ui-react'
 import JobAdvertisementService from '../services/jobAdvertisementService'
 
-export default function JobAdvertisementList() {
-
-  const [jobAdvertisements, setJobAdvertisements] = useState([])
+export default function JobAdvertisementOrderDateDesc() {
+    const [jobAdvertisements, setJobAdvertisements] = useState([])
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService()
-    jobAdvertisementService.getJobAdvertisement().then(result => setJobAdvertisements(result.data.data))
+    jobAdvertisementService.getJobAdvertisementOrderByDateDesc().then(result => setJobAdvertisements(result.data.data))
   },[])
-  return (
-    <div>
-      <Table celled structured>
+
+
+
+    return (
+        <div>
+            <Table celled structured>
         <Table.Header>
+            Yayınlanma tarihine göre
           <Table.Row>
 
             <Table.HeaderCell rowSpan='2'>Şirket Adı</Table.HeaderCell>
@@ -36,5 +39,6 @@ export default function JobAdvertisementList() {
         </Table.Body>
       </Table>
     </div>
-  )
+        
+    )
 }
