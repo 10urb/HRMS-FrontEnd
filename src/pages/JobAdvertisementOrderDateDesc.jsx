@@ -15,9 +15,7 @@ export default function JobAdvertisementOrderDateDesc() {
         <div>
             <Table celled structured>
         <Table.Header>
-            Yayınlanma tarihine göre
           <Table.Row>
-
             <Table.HeaderCell rowSpan='2'>Şirket Adı</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>İş Türü</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>Gerekli Personel Sayısı</Table.HeaderCell>

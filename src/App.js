@@ -3,6 +3,9 @@ import Dashboard from "./layouts/Dashboard";
 import Navigation from "./layouts/Navigation";
 import 'semantic-ui-css/semantic.min.css'
 import { Container } from 'semantic-ui-react';
+import SignUp from './layouts/SignUp';
+import SignUpForm from './pages/SignUpForm';
+
 
 
 
@@ -12,6 +15,9 @@ function App() {
       <Navigation/>
       <Container className="main">
         <Dashboard />
+       
+    
+     
       </Container>
 
 

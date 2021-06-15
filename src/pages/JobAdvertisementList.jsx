@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import {Table } from 'semantic-ui-react'
+import { Label } from 'reactstrap'
+import { Button, Table } from 'semantic-ui-react'
 import JobAdvertisementService from '../services/jobAdvertisementService'
+import JobAdvertisementOrderDateDesc from '../pages/JobAdvertisementOrderDateDesc'
+import { NavLink, Route } from 'react-router-dom'
 
 export default function JobAdvertisementList() {
 
@@ -8,13 +11,13 @@ export default function JobAdvertisementList() {
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService()
     jobAdvertisementService.getJobAdvertisement().then(result => setJobAdvertisements(result.data.data))
-  },[])
+  }, [])
   return (
     <div>
+      <Button color="grey" as={NavLink} to="jobadvertisementsdesc"  >Tarihe göre sırala</Button>
       <Table celled structured>
-        <Table.Header>
-          <Table.Row>
-
+        <Table.Header >
+          <Table.Row >
             <Table.HeaderCell rowSpan='2'>Şirket Adı</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>İş Türü</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>Gerekli Personel Sayısı</Table.HeaderCell>
@@ -22,7 +25,6 @@ export default function JobAdvertisementList() {
             <Table.HeaderCell rowSpan='2'> Son Başvuru Tarihi</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
         <Table.Body>
           {jobAdvertisements.map(jobAdvertisements => (
             <Table.Row key={jobAdvertisements.id}>

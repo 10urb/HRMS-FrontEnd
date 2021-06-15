@@ -1,35 +1,43 @@
-import React from 'react'
-import { Button, Container, Dropdown, Menu } from 'semantic-ui-react'
-
-
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import { Button, Container, Menu } from 'semantic-ui-react'
+import SignedIn from './SignedIn'
+import SignedOut from './SignedOut'
 
 export default function Navigation() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)/*default u seçtik*/
+  function handleSignOut() {
+    setIsAuthenticated(false)
+  }
+  function handleSignIn() {
+    setIsAuthenticated(true)
+  }
+
   return (
     <div>
-      <Menu inverted fixed="top" size='large'>
-        <Container>
-        <Menu.Item name='ana'  />
-          <Menu.Item name='home' />
-          <Menu.Item name='messages' />
-          
 
+      <Menu inverted fixed="top">
+        
+        <Container>
+          <Menu.Item>
+            <Button as={NavLink} to="/"  inverted name="HRMS" basic  size="large" color="white">HRMS</Button>
+          </Menu.Item>
+         
+          <Menu.Item as={NavLink} to="/" name='home' />
+          <Menu.Item name='messages' />
           <Menu.Menu position='right'>
-            <Dropdown item text='Language'>
-              <Dropdown.Menu>
-                <Dropdown.Item>English</Dropdown.Item>
-                <Dropdown.Item>Russian</Dropdown.Item>
-                <Dropdown.Item>Spanish</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            {isAuthenticated ? <SignedIn signOut={handleSignOut} /> : <SignedOut signIn={handleSignIn} />}
+
             <Menu.Item>
-              <Button primary >Sign Up</Button>
-              <Button color="olive">Sign In</Button>
-            </Menu.Item>
+          <Button as={NavLink} to="/SignUp" inverted name="signUp" basic circular size="large" color="gray">Kaydol</Button>
+
+          </Menu.Item>
           </Menu.Menu>
+          
         </Container>
 
       </Menu>
     </div>
-  )
+  );
 
 }

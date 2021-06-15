@@ -5,31 +5,22 @@ export default function JobAdvertisements() {
     return (
         <div>
              <Menu size='large' vertical>
-        <Menu.Item
-          name='inbox'
-         
-        >
+        <Menu.Item name='inbox' >
           <Label color='teal'>1</Label>
           Inbox
         </Menu.Item>
 
-        <Menu.Item
-          name='spam'
-         
-        >
+        <Menu.Item name='spam'>
           <Label>51</Label>
           Spam
         </Menu.Item>
 
-        <Menu.Item
-          name='updates'
-          
-        >
+        <Menu.Item name='updates'>
           <Label>1</Label>
           Updates
         </Menu.Item>
         <Menu.Item>
-          <Input icon='search' placeholder='Search mail...' />
+          <Input icon='search' placeholder='İş ara...' />
         </Menu.Item>
       </Menu>
         </div>
