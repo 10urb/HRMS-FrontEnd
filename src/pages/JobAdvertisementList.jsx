@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Label } from 'reactstrap'
-import { Button, Table } from 'semantic-ui-react'
+import { Button, Dropdown, Table } from 'semantic-ui-react'
 import JobAdvertisementService from '../services/jobAdvertisementService'
-import JobAdvertisementOrderDateDesc from '../pages/JobAdvertisementOrderDateDesc'
-import { NavLink, Route } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import JobAdvertisementOrderDateDesc from './JobAdvertisementOrderDateDesc'
 
 export default function JobAdvertisementList() {
+  
 
   const [jobAdvertisements, setJobAdvertisements] = useState([])
   useEffect(() => {
@@ -14,10 +14,15 @@ export default function JobAdvertisementList() {
   }, [])
   return (
     <div>
-      <Button color="grey" as={NavLink} to="jobadvertisementsdesc"  >Tarihe göre sırala</Button>
       <Table celled structured>
         <Table.Header >
+        <Dropdown placeholder="Sırala" additionPosition="top" >
+          <Dropdown.Menu>
+          <Dropdown.Item text="Traihe göre sırala"  as={NavLink} to="jobadvertisements/desc"/>
+          </Dropdown.Menu>
+        </Dropdown>
           <Table.Row >
+        
             <Table.HeaderCell rowSpan='2'>Şirket Adı</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>İş Türü</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>Gerekli Personel Sayısı</Table.HeaderCell>

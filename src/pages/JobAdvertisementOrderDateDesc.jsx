@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Table } from 'semantic-ui-react'
+import { Dropdown, Table } from 'semantic-ui-react'
 import JobAdvertisementService from '../services/jobAdvertisementService'
+import { NavLink } from 'react-router-dom'
 
 export default function JobAdvertisementOrderDateDesc() {
     const [jobAdvertisements, setJobAdvertisements] = useState([])
@@ -15,6 +16,11 @@ export default function JobAdvertisementOrderDateDesc() {
         <div>
             <Table celled structured>
         <Table.Header>
+        <Dropdown placeholder="Sırala" additionPosition="top" >
+          <Dropdown.Menu>
+          <Dropdown.Item text="Aktifliğe göre sırala"  as={NavLink} to="/jobadvertisements"/>
+          </Dropdown.Menu>
+        </Dropdown>
           <Table.Row>
             <Table.HeaderCell rowSpan='2'>Şirket Adı</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>İş Türü</Table.HeaderCell>

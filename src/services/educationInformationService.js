@@ -7,7 +7,7 @@ export default class EducationInformationService {
     getAllByResumeIdOrderByGraduationDateDesc(resumeId) {
         return axios.get("http://localhost:8080/findAllByResumeIdOrderByGraduationDateDesc?resumeId=" + resumeId)
     }
-    addEducationInformation(){
+    postAdd(){
         return axios.post("http://localhost:8080/add")
     }
 }

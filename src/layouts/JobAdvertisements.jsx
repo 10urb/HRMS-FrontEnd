@@ -2,9 +2,9 @@ import React from 'react'
 import { Input, Label, Menu } from 'semantic-ui-react'
 
 export default function JobAdvertisements() {
-    return (
-        <div>
-             <Menu size='large' vertical>
+  return (
+    <div>
+      <Menu size='large' vertical>
         <Menu.Item name='inbox' >
           <Label color='teal'>1</Label>
           Inbox
@@ -23,6 +23,6 @@ export default function JobAdvertisements() {
           <Input icon='search' placeholder='İş ara...' />
         </Menu.Item>
       </Menu>
-        </div>
-    )
+    </div>
+  )
 }

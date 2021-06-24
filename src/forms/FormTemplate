@@ -1,0 +1,28 @@
+<div>
+    <Formik
+
+    >
+        <Form className="ui form">
+            <Header as='h3' disabled dividing>
+                .... Ekleme
+            </Header>
+            <Segment padded >
+                <Grid>
+                    <Grid.Row>
+                        <GridColumn width={8}>
+                            <HRMSTextInput name="numberOfOpenPosition" placeholder="Açık pozisyon sayısı"></HRMSTextInput>
+                        </GridColumn>
+                        <GridColumn width={8}>
+                            <HRMSTextInput name="" placeholder=""></HRMSTextInput>
+                            <Button color="olive" circular type="submit">Ekle</Button>
+                        </GridColumn>
+                    </Grid.Row>
+                </Grid>
+                <Divider ></Divider>
+            </Segment>
+        </Form >
+    </Formik>
+    <Header as='h6' icon disabled dividing>
+        HRMS
+    </Header>
+</div>

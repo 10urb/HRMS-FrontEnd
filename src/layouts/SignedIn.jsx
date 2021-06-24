@@ -1,7 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { Menu,Image ,Dropdown, Button} from 'semantic-ui-react'
-import SignUpForm from '../pages/SignUpForm'
+import { Menu,Image ,Dropdown} from 'semantic-ui-react'
 
 export default function SignedIn({signOut}) {
     return (
@@ -11,10 +9,8 @@ export default function SignedIn({signOut}) {
                 <Dropdown  pointing="top left" text="Onur">
                     <Dropdown.Menu>
                         <Dropdown.Item text="Bilgilerim" icon="info"/>
-
-                        <Dropdown.Item active onClick={signOut} text="Çıkış yap" icon="sign-out" />
+                        <Dropdown.Item  onClick={signOut} text="Çıkış yap" icon="sign-out" />
                     </Dropdown.Menu>
-
                 </Dropdown>
             </Menu.Item>
         </div>
