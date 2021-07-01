@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import SignUpForm from ".../src/pages/forms/SignUpForm.jsx"
-import { Button } from 'semantic-ui-react'
+
 
 
 

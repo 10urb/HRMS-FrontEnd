@@ -12,12 +12,14 @@ export default class JobAdvertisementService {
     getByEmployerCompanyNameAndStatusTrue(companyName) {
         return axios.get("http://localhost:8080/api/JobAdvertisements/ findByEmployer_CompanyNameAndStatus?companyName=" + companyName)
     }
-    postAdd() {
-        return axios.post("http://localhost:8080/api/JobAdvertisements/add")
+    postAdd(values) {
+       
+        return axios.post("http://localhost:8080/api/JobAdvertisements/add", values)
+        .then(values.data)
     }
 
     postUpdate() {
-        return axios.post("http://localhost:8080/api/JobAdvertisements/update")
+        return axios.put("http://localhost:8080/api/JobAdvertisements/update")
     }
 
     getPostDoPassive(jobAdvertisementId) {

@@ -19,22 +19,18 @@ export default function Navigation() {
       <Menu inverted fixed="top">        
         <Container>
           <Menu.Item>
-            <Button as={NavLink} to="/"  inverted name="HRMS" basic  size="large" color="white">HRMS</Button>
-          </Menu.Item>
-         
-          <Menu.Item as={NavLink} to="/" name='home' />
-       
+            <Button as={NavLink} to="/"  inverted name="HRMS" basic disabled size="large" >HRMS</Button>
+          </Menu.Item>       
+          <Menu.Item as={NavLink} to="/" name='home' />       
           <Menu.Menu position='right'>
-            {isAuthenticated ? <SignedIn signOut={handleSignOut} /> : <SignedOut signIn={handleSignIn} />}
-
-            <Menu.Item>
-          <Button  inverted name="signUp" basic circular size="large" color="gray">Kaydol</Button>
-
-          </Menu.Item>
-          </Menu.Menu>
-       
+            {
+            isAuthenticated 
+            ? <SignedIn signOut={handleSignOut} /> 
+            : <SignedOut signIn={handleSignIn} />
+            }
+           
+          </Menu.Menu>   
         </Container>
-
       </Menu>
     </div>
   );

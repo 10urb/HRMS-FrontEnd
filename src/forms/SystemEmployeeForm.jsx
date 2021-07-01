@@ -4,21 +4,24 @@ import * as Yup from "yup"
 import { Formik } from 'formik'
 import { Button, Form, Grid, GridColumn, Header, Divider, Segment, GridRow } from 'semantic-ui-react'
 import HRMSTextInput from '../Utilities/CustomFormControls/HRMSTextInput'
+import SystemEmployeeService from '../services/systemEmployeeService'
+import { Zorunlu_Alan } from './JobAdvertisementForm'
 
+export default function SystemEmployeeForm() {
 
-export default function componant name() {
-
-    const [workplace, setWorkplace] = useState([])
+    const [systemEmployee, setSystemEmployee] = useState([])
     useEffect(() => {
-        let workplaceService = new WorkplaceService()
-        workplaceService.getGetAll().then(result => setWorkplace(result.data.data))
+        let systemEmployeeService = new SystemEmployeeService()
+        systemEmployeeService.getGetAll().then(result => setSystemEmployee(result.data.data))
     }, [])
 
     const initialValues = {
-        
+        firstName:"",
+        lastName:""
     }
     const validationSchema = Yup.object({
-     
+        firstName:Yup.string().required(Zorunlu_Alan),
+        lastName:Yup.string().required(Zorunlu_Alan)
     })
     return (
         <div>
@@ -32,13 +35,15 @@ export default function componant name() {
                 {({ handleSubmit }) => (
                     <Form onSubmit={handleSubmit} className="ui form">
                         <Header as='h3' disabled dividing>
-                            ...... ekleme
+                            Sistem çalışanı ekleme
                         </Header>
                         <Segment padded >
                             <Grid>
                                 <GridRow>
                                     <GridColumn width={8}>
-                                        <HRMSTextInput name="typeOfWorkplace" placeholder="Çalışma yeri giriniz"></HRMSTextInput>
+                                        <HRMSTextInput name="firstName" placeholder="Adınız"></HRMSTextInput>
+                                        <HRMSTextInput name="lastName" placeholder="Soyadınız"></HRMSTextInput>
+
                                     </GridColumn>
                                     <GridColumn width={8}>
 

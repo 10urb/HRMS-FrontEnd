@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Dropdown, Table } from 'semantic-ui-react'
+import {  Dropdown, Table } from 'semantic-ui-react'
 import EmployerService from '../services/employerService'
 import { NavLink } from 'react-router-dom'
 

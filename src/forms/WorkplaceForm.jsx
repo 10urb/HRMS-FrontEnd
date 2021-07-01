@@ -1,12 +1,14 @@
 import React from 'react'
 import { useEffect,useState } from 'react'
+import WorkplaceService from '../services/workplaceService'
 import * as Yup from "yup"
 import { Formik } from 'formik'
 import { Button, Form, Grid, GridColumn, Header, Divider, Segment, GridRow } from 'semantic-ui-react'
 import HRMSTextInput from '../Utilities/CustomFormControls/HRMSTextInput'
+import { Zorunlu_Alan } from './JobAdvertisementForm'
 
 
-export default function componant name() {
+export default function WorkplaceForm() {
 
     const [workplace, setWorkplace] = useState([])
     useEffect(() => {
@@ -15,10 +17,10 @@ export default function componant name() {
     }, [])
 
     const initialValues = {
-        
+        typeOfWorkplace: ""
     }
     const validationSchema = Yup.object({
-     
+        typeOfWorkplace: Yup.string().required(Zorunlu_Alan).min(5)
     })
     return (
         <div>
@@ -32,7 +34,7 @@ export default function componant name() {
                 {({ handleSubmit }) => (
                     <Form onSubmit={handleSubmit} className="ui form">
                         <Header as='h3' disabled dividing>
-                            ...... ekleme
+                            Çalışma yeri ekleme
                         </Header>
                         <Segment padded >
                             <Grid>

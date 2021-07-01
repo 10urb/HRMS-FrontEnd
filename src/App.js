@@ -7,9 +7,9 @@ import { Container } from 'semantic-ui-react';
 function App() {
   return (
     <div className="App">
-      <Container className="main">
       <Navigation />
-      <Dashboard />
+      <Container className="main">
+        <Dashboard />
       </Container>
     </div>
   );

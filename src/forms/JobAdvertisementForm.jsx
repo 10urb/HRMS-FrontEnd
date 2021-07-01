@@ -3,24 +3,27 @@ import WorkingTimeService from '../services/workingTimeService'
 import CityService from '../services/cityService'
 import JobAdvertisementService from '../services/jobAdvertisementService'
 import WorkplaceService from '../services/workplaceService'
-import { Form, Formik } from 'formik';
+import JobTitleService from '../services/jobTitleService'
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import HRMSTextInput from '../Utilities/CustomFormControls/HRMSTextInput'
-import { Button, Grid, GridColumn, Header, Divider, Segment } from 'semantic-ui-react'
+import HRMSTextSelectInput from '../Utilities/CustomFormControls/HRMSTextSelectInput'
+import { Button, Form, Grid, GridColumn, Header, Divider, Segment } from 'semantic-ui-react'
+import { toast } from 'react-toastify'
+
 export const Zorunlu_Alan = "Zorunlu alan"
 export const Tarih_Girmelisiniz = "Tarih girmelisiniz"
 export const Posta_Adresi_Gecerli_Degil = "Posta adresi geçerli değil"
 export const Gecerli_Bir_Sayi_Degil = "Geçerli bir sayı değil"
+export const Ekleme_Basarili = "Ekleme başarılı "
 
 
 export default function JobAdvertisementForm() {
-
-
-    let jobAdvertisementService = new JobAdvertisementService()
     const [workingTime, setWorkingTime] = useState([])
     const [workplace, setWorkplace] = useState([])
     const [city, setCity] = useState([])
     const [jobAdvertisement, setjobAdvertisement] = useState([])
+    const [jobTitle, setJobTitle] = useState([])
 
     useEffect(() => {
         let workingTimeService = new WorkingTimeService()
@@ -29,31 +32,32 @@ export default function JobAdvertisementForm() {
         let workplaceService = new WorkplaceService()
         workplaceService.getGetAll().then(result => setWorkplace(result.data.data))
 
-       
-
         let cityService = new CityService()
         cityService.getAllCity().then(result => setCity(result.data.data))
+
+        let jobTitleService = new JobTitleService()
+        jobTitleService.getGetAll().then(result => setJobTitle(result.data.data))
     }, [])
 
 
 
 
-    const workingTimeOption = workingTime.map((workingTime, index) => ({
-        key: index,
+    const workingTimeOption = workingTime.map((workingTime) => ({
+        key: workingTime.workingTimeId,
         text: workingTime.workingTime,
-        value: workingTime.workingTimeId,
+        value: workingTime.workingTime,
     }));
 
-    const cityOption = city.map((city, index) => ({
-        key: index,
+    const cityOption = city.map((city) => ({
+        key: city.id,
         text: city.cityName,
-        value: city.id
+        value: city.cityName
     }));
 
-    const workplaceOption = workplace.map((workplace, index) => ({
-        key: index,
+    const workplaceOption = workplace.map((workplace) => ({
+        key: workplace.id,
         text: workplace.typeOfWorkplace,
-        value: workplace.id,
+        value: workplace.typeOfWorkplace,
     }))
 
     const initialValues = {
@@ -69,9 +73,8 @@ export default function JobAdvertisementForm() {
         numberOfOpenPosition: "",
         publicationDate: "",
         applicationDeadline: "",
-        positionName: ""
+        jobTitle: ""
     }
-
     const validationSchema = Yup.object({
         companyName: Yup.string().required(Zorunlu_Alan),
         companyMail: Yup.string().email(Posta_Adresi_Gecerli_Degil).required(Zorunlu_Alan),
@@ -85,65 +88,63 @@ export default function JobAdvertisementForm() {
         numberOfOpenPosition: Yup.number(Gecerli_Bir_Sayi_Degil).required(Zorunlu_Alan),
         publicationDate: Yup.date(Tarih_Girmelisiniz).required(Zorunlu_Alan),
         applicationDeadline: Yup.date(Tarih_Girmelisiniz).required(Zorunlu_Alan),
-        positionName: Yup.string().required(Zorunlu_Alan),
-
+        jobTitle: Yup.string().required(Zorunlu_Alan)
     })
+
+
+
+
     return (
         <div>
-      
-        <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-                console.log(values)
-                jobAdvertisementService.postAdd()
-                
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                    // let jobAdvertisementService = new JobAdvertisementService()
+                    // jobAdvertisementService.postAdd(values).then(toast.success(Ekleme_Basarili))
+                    console.log(values)
+                }}
+            >
+                {({ handleSubmit, handleChange }) => (
+                    <Form onSubmit={handleSubmit} className="ui form">
+                        <Header as='h3' disabled dividing>
+                            İş ilanı ekleme
+                        </Header>
+                        <Segment padded >
+                            <Grid>
+                                <Grid.Row>
+                                    <GridColumn width={8}>
+                                        <HRMSTextInput name="companyName" placeholder=" Şirket adı"></HRMSTextInput>
+                                        <HRMSTextSelectInput options={cityOption} placeholder="Şehir seçiniz" name="city" ></HRMSTextSelectInput>
+                                        <HRMSTextInput name="companyMail" placeholder=" Şirket e-posta adresi"></HRMSTextInput>
+                                        <HRMSTextInput name="webSite" placeholder=" Web sitesi adı"></HRMSTextInput>
+                                        <HRMSTextInput name="jobTitle" placeholder=" Pozisyon adı"></HRMSTextInput>
+                                        <HRMSTextSelectInput options={workingTimeOption} placeholder="Çalışma zamanı seçiniz" name="workingTime" ></HRMSTextSelectInput>
+                                        <HRMSTextInput name="numberOfOpenPosition" placeholder="Açık pozisyon sayısı"></HRMSTextInput>
+                                    </GridColumn>
+                                    <GridColumn width={8}>
+                                        <HRMSTextSelectInput options={workplaceOption} placeholder="Çalışma yeri seçiniz" name="workplace" ></HRMSTextSelectInput>
+                                        <HRMSTextInput name="jobDescription" placeholder=" İş açıklaması"></HRMSTextInput>
+                                        <HRMSTextInput name="minSalary" placeholder=" En düşük ücret"></HRMSTextInput>
+                                        <HRMSTextInput name="maxSalary" placeholder=" En yüksek ücret"></HRMSTextInput>
+                                        <HRMSTextInput name="publicationDate" placeholder=" Yayın tarihi"></HRMSTextInput>
+                                        <HRMSTextInput name="applicationDeadline" placeholder=" İlan bitiş tarihi"></HRMSTextInput>
 
-            }}
-        >
+                                    </GridColumn>
+                                </Grid.Row>
+                            </Grid>
+                            <Divider ></Divider>
+                            <Button color="olive" circular type="submit">Ekle</Button>
 
-            <Form className="ui form">
-           
+                        </Segment>
+                    </Form>
+                )}
+            </Formik>
 
-                <Header as='h3' disabled dividing>
-                    İş İlanı Ekleme
-                </Header>
-                <Segment padded >
-                    <Grid>
-                        <Grid.Row>
+            <Header as='h6' icon disabled dividing>
+                HRMS
+            </Header>
 
-                            <GridColumn width={8}>
-                                <HRMSTextInput name="companyName" placeholder=" Şirket adı"></HRMSTextInput>
-                                <HRMSTextInput name="city" placeholder=" Şehir seçiniz"></HRMSTextInput>
-                                <HRMSTextInput name="companyMail" placeholder=" Şirket e-posta adresi"></HRMSTextInput>
-                                <HRMSTextInput name="webSite" placeholder=" Web sitesi adı"></HRMSTextInput>
-                                <HRMSTextInput name="positionName" placeholder=" Pozisyon adı"></HRMSTextInput>
-                                <HRMSTextInput name="workingTime" placeholder=" Çalışma zamanı seçiniz"></HRMSTextInput>
-                                <HRMSTextInput name="numberOfOpenPosition" placeholder="Açık pozisyon sayısı"></HRMSTextInput>
-                            </GridColumn>
-
-                            <GridColumn width={8}>
-
-                                <HRMSTextInput name="workplace" placeholder=" Çalışma yeri seçiniz"></HRMSTextInput>
-                                <HRMSTextInput name="jobDescription" placeholder=" İş açıklaması"></HRMSTextInput>
-                                <HRMSTextInput name="minSalary" placeholder=" En düşük ücret"></HRMSTextInput>
-                                <HRMSTextInput name="maxSalary" placeholder=" En yüksek ücret"></HRMSTextInput>
-                                <HRMSTextInput name="publicationDate" placeholder=" Yayın tarihi"></HRMSTextInput>
-                                <HRMSTextInput name="applicationDeadline" placeholder=" İlan bitiş tarihi"></HRMSTextInput>
-                                <Button color="olive" circular type="submit">Ekle</Button>
-                            </GridColumn>
-
-                        </Grid.Row>
-
-                    </Grid>
-                    <Divider ></Divider>
-                </Segment>
-            </Form >
-
-        </Formik>
-        <Header as='h6' icon disabled dividing>
-        HRMS
-     </Header>
-        </div>
+        </div >
     )
 }

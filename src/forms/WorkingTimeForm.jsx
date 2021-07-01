@@ -3,60 +3,46 @@ import React from 'react'
 import { Button, Form, Grid, GridColumn, Header, Divider, Segment, FormButton, GridRow } from 'semantic-ui-react'
 import * as Yup from 'yup';
 import HRMSTextInput from '../Utilities/CustomFormControls/HRMSTextInput';
-import ResumeService from '../services/resumeService'
-
-export default function ResumeForm() {
-    let resumeService = new ResumeService()
-
+import { Zorunlu_Alan } from './JobAdvertisementForm';
+export default function WorkingTimeForm() {
     const initialValues = {
-        gitHubLink: "",
-        linkedinLink: "",
-        coverLetter: ""
+        workingTime: ""
     }
     const validationSchema = Yup.object({
-        gitHubLink: Yup.string(),
-        linkedinLink: Yup.string(),
-        coverLetter: Yup.string(),
+        workingTime: Yup.string().required(Zorunlu_Alan).min(5)
     })
-
-
     return (
         <div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                onSubmit={(values) => {
+                onSubmit={(values) => (
                     console.log(values)
-
-                }}
+                )}
             >
                 {({ handleSubmit }) => (
 
+
                     <Form onSubmit={handleSubmit} className="ui form">
                         <Header as='h3' disabled dividing>
-                            .... Ekleme
+                            Çalışma zamanı ekleme
                         </Header>
                         <Segment padded >
                             <Grid>
                                 <GridRow>
-                                    <GridColumn width={4}>
-
-
+                                    <GridColumn width={8}>
+                                        <HRMSTextInput name="workingTime" placeholder="Çalışma zamanı giriniz"></HRMSTextInput>
                                     </GridColumn>
                                     <GridColumn width={8}>
-                                        <HRMSTextInput name="gitHubLink" placeholder="GitHub linkinizi yazınız"></HRMSTextInput>
-                                        <HRMSTextInput name="linkedinLink" placeholder="Linkedin linkinizi yazınız"></HRMSTextInput>
-                                        <HRMSTextInput name="coverLetter" placeholder="Kapak yazınızı giriniz"></HRMSTextInput>
+                                        <Button color="olive" circular type="submit">Ekle</Button>
                                     </GridColumn>
                                 </GridRow>
                             </Grid>
                             <Divider ></Divider>
-                            <Button type="submit" color="olive" circular> Ekle </Button>
-
                         </Segment>
-                    </Form>
+                    </Form >
                 )}
-            </Formik >
+            </Formik>
             <Header as='h6' icon disabled dividing>
                 HRMS
             </Header>
